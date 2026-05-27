@@ -2,164 +2,229 @@
 // RECIPE DATA
 // =============================================
 const RECIPES = [
+  // ─── 粕谷哲 4:6メソッド（ホット） ───────────────
   {
-    id: "hario-switch",
-    name: "Hario Switch",
+    id: "kasuya-46-hot",
+    name: "4:6メソッド",
+    subname: "ホット",
+    icon: "☕",
+    tag: "method46",
+    tagLabel: "4:6 Method",
+    totalTime: 210,   // 3:30
+    waterTotal: 300,
+    coffeeGrams: 20,
+    steps: [
+      {
+        name: "第1投（蒸らし）",
+        instruction: "50gのお湯を中心から外へ円を描くように注ぐ",
+        duration: 45,
+        waterTarget: 50,
+        hasValve: false,
+      },
+      {
+        name: "第2投",
+        instruction: "70g追加し合計120gに（甘み・酸味を調整）",
+        duration: 45,
+        waterTarget: 120,
+        hasValve: false,
+      },
+      {
+        name: "第3投",
+        instruction: "60g追加し合計180gに",
+        duration: 45,
+        waterTarget: 180,
+        hasValve: false,
+      },
+      {
+        name: "第4投",
+        instruction: "60g追加し合計240gに",
+        duration: 45,
+        waterTarget: 240,
+        hasValve: false,
+      },
+      {
+        name: "第5投",
+        instruction: "60g追加し合計300gに（濃さを調整）",
+        duration: 30,
+        waterTarget: 300,
+        hasValve: false,
+      },
+    ],
+  },
+
+  // ─── 粕谷哲 4:6メソッド（アイス） ──────────────
+  {
+    id: "kasuya-46-ice",
+    name: "4:6メソッド",
+    subname: "アイス",
+    icon: "🧊",
+    tag: "ice",
+    tagLabel: "Ice",
+    totalTime: 180,   // 3:00
+    waterTotal: 170,  // 注湯量（別途サーバーに氷130gを用意）
+    coffeeGrams: 20,
+    iceGrams: 130,
+    steps: [
+      {
+        name: "準備",
+        instruction: "サーバーに氷130gをセットしておく",
+        duration: 10,
+        waterTarget: 0,
+        hasValve: false,
+      },
+      {
+        name: "第1投（蒸らし）",
+        instruction: "34gのお湯を中心から外へ円を描くように注ぐ",
+        duration: 40,
+        waterTarget: 34,
+        hasValve: false,
+      },
+      {
+        name: "第2投",
+        instruction: "50g追加し合計84gに",
+        duration: 40,
+        waterTarget: 84,
+        hasValve: false,
+      },
+      {
+        name: "第3投",
+        instruction: "30g追加し合計114gに",
+        duration: 35,
+        waterTarget: 114,
+        hasValve: false,
+      },
+      {
+        name: "第4投",
+        instruction: "28g追加し合計142gに",
+        duration: 35,
+        waterTarget: 142,
+        hasValve: false,
+      },
+      {
+        name: "第5投",
+        instruction: "28g追加し合計170gに。氷が溶けたら完成",
+        duration: 20,
+        waterTarget: 170,
+        hasValve: false,
+      },
+    ],
+  },
+
+  // ─── Hario Switch ハイブリッド（ホット）最新版 ──
+  {
+    id: "switch-hybrid-hot",
+    name: "Switch ハイブリッド",
+    subname: "ホット",
     icon: "🔄",
     tag: "switch",
     tagLabel: "Switch",
-    totalTime: 135, // total seconds
-    waterTotal: 200,
-    coffeeGrams: 15,
+    totalTime: 240,   // 4:00
+    waterTotal: 300,
+    coffeeGrams: 20,
     steps: [
       {
-        name: "Bloom",
-        instruction: "60gのお湯を注ぐ",
+        name: "蒸らし（バルブ閉）",
+        instruction: "50gのお湯を全体に均一に注ぐ",
         duration: 45,
-        waterTarget: 60,
+        waterTarget: 50,
         hasValve: true,
         valveOpen: false,
         valveDesc: "浸漬のためバルブを閉じる",
       },
       {
-        name: "1st Pour",
-        instruction: "100gまで追加注湯",
-        duration: 30,
-        waterTarget: 100,
+        name: "第1投（バルブ開）",
+        instruction: "70g追加し合計120gに。中心から外へ円を描くように",
+        duration: 45,
+        waterTarget: 120,
+        hasValve: true,
+        valveOpen: true,
+        valveDesc: "バルブを開けて透過式で抽出",
+      },
+      {
+        name: "第2投（バルブ開）",
+        instruction: "80g追加し合計200gに。この間にお湯を70〜80℃に冷ます",
+        duration: 40,
+        waterTarget: 200,
+        hasValve: true,
+        valveOpen: true,
+        valveDesc: "バルブは開けたまま。お湯を冷ます",
+      },
+      {
+        name: "第3投（バルブ閉）",
+        instruction: "冷ましたお湯100gを追加し合計300gに",
+        duration: 35,
+        waterTarget: 300,
         hasValve: true,
         valveOpen: false,
-        valveDesc: "引き続きバルブは閉じたまま",
+        valveDesc: "バルブを閉じて浸漬に切り替え",
       },
       {
-        name: "Drain",
-        instruction: "バルブを開けてドリップ",
-        duration: 30,
-        waterTarget: 100,
+        name: "ドリップ（バルブ開）",
+        instruction: "バルブを開けてサーバーへ落とす",
+        duration: 75,
+        waterTarget: 300,
         hasValve: true,
         valveOpen: true,
-        valveDesc: "バルブを開けてお湯を落とす",
-      },
-      {
-        name: "Final Pour",
-        instruction: "200gまで注湯",
-        duration: 30,
-        waterTarget: 200,
-        hasValve: true,
-        valveOpen: true,
-        valveDesc: "バルブは開けたまま",
+        valveDesc: "バルブを開けてドリップ開始",
       },
     ],
   },
+
+  // ─── Hario Switch ハイブリッド（アイス）最新版 ──
   {
-    id: "v60",
-    name: "Hario V60",
-    icon: "⬡",
-    tag: "v60",
-    tagLabel: "V60",
-    totalTime: 180,
-    waterTotal: 300,
+    id: "switch-hybrid-ice",
+    name: "Switch ハイブリッド",
+    subname: "アイス",
+    icon: "❄️",
+    tag: "ice",
+    tagLabel: "Ice",
+    totalTime: 210,   // 3:30
+    waterTotal: 140,  // 注湯量（別途サーバーに氷80gを用意）
     coffeeGrams: 20,
+    iceGrams: 80,
     steps: [
       {
-        name: "Bloom",
-        instruction: "40gのお湯を注ぐ",
-        duration: 45,
-        waterTarget: 40,
+        name: "準備",
+        instruction: "サーバーに氷80gをセットしておく",
+        duration: 10,
+        waterTarget: 0,
         hasValve: false,
       },
       {
-        name: "1st Pour",
-        instruction: "140gまで中心から円を描くように",
-        duration: 45,
+        name: "第1投（バルブ開）",
+        instruction: "30gのお湯を注ぐ",
+        duration: 30,
+        waterTarget: 30,
+        hasValve: true,
+        valveOpen: true,
+        valveDesc: "バルブを開けて透過式で抽出",
+      },
+      {
+        name: "第2投（バルブ開）",
+        instruction: "40g追加し合計70gに。この間にお湯を70℃に冷ます",
+        duration: 70,
+        waterTarget: 70,
+        hasValve: true,
+        valveOpen: true,
+        valveDesc: "バルブは開けたまま。お湯を70℃に冷ます",
+      },
+      {
+        name: "第3投（バルブ閉）",
+        instruction: "冷ました70℃のお湯70gを追加し合計140gに",
+        duration: 30,
         waterTarget: 140,
-        hasValve: false,
+        hasValve: true,
+        valveOpen: false,
+        valveDesc: "バルブを閉じて浸漬に切り替え",
       },
       {
-        name: "2nd Pour",
-        instruction: "220gまでゆっくりと",
-        duration: 45,
-        waterTarget: 220,
-        hasValve: false,
-      },
-      {
-        name: "Final Pour",
-        instruction: "300gまで注ぐ",
-        duration: 45,
-        waterTarget: 300,
-        hasValve: false,
-      },
-    ],
-  },
-  {
-    id: "chemex",
-    name: "Chemex",
-    icon: "🧪",
-    tag: "chemex",
-    tagLabel: "Chemex",
-    totalTime: 240,
-    waterTotal: 400,
-    coffeeGrams: 30,
-    steps: [
-      {
-        name: "Bloom",
-        instruction: "60gのお湯を注ぐ",
-        duration: 60,
-        waterTarget: 60,
-        hasValve: false,
-      },
-      {
-        name: "1st Pour",
-        instruction: "200gまでゆっくりと注ぐ",
-        duration: 60,
-        waterTarget: 200,
-        hasValve: false,
-      },
-      {
-        name: "2nd Pour",
-        instruction: "300gまで追加",
-        duration: 60,
-        waterTarget: 300,
-        hasValve: false,
-      },
-      {
-        name: "Final Pour",
-        instruction: "400gまで仕上げ",
-        duration: 60,
-        waterTarget: 400,
-        hasValve: false,
-      },
-    ],
-  },
-  {
-    id: "aeropress",
-    name: "AeroPress",
-    icon: "💉",
-    tag: "aeropress",
-    tagLabel: "AeroPress",
-    totalTime: 120,
-    waterTotal: 200,
-    coffeeGrams: 15,
-    steps: [
-      {
-        name: "Bloom",
-        instruction: "40gのお湯を注ぎ30秒蒸らす",
-        duration: 30,
-        waterTarget: 40,
-        hasValve: false,
-      },
-      {
-        name: "Main Pour",
-        instruction: "200gまで素早く注ぐ",
-        duration: 30,
-        waterTarget: 200,
-        hasValve: false,
-      },
-      {
-        name: "Steep",
-        instruction: "1分間待つ",
-        duration: 60,
-        waterTarget: 200,
-        hasValve: false,
+        name: "ドリップ（バルブ開）",
+        instruction: "バルブを開けて氷の上に落とす",
+        duration: 70,
+        waterTarget: 140,
+        hasValve: true,
+        valveOpen: true,
+        valveDesc: "バルブを開けて氷の上へドリップ",
       },
     ],
   },
@@ -185,26 +250,26 @@ let state = {
 const screens = {
   recipes: document.getElementById("screen-recipes"),
   ready: document.getElementById("screen-ready"),
-  countdown: document.getElementById("screen-countdown"),
   brew: document.getElementById("screen-brew"),
   complete: document.getElementById("screen-complete"),
 };
 
 // Ready screen elements
 const elReadyRecipeIcon = document.getElementById("ready-recipe-icon");
+const elReadyRecipeTagLabel = document.getElementById("ready-recipe-tag-label");
 const elReadyRecipeName = document.getElementById("ready-recipe-name");
 const elReadyCoffee = document.getElementById("ready-coffee");
 const elReadyWater = document.getElementById("ready-water");
 const elReadyTime = document.getElementById("ready-time");
 const elBtnReadyBack = document.getElementById("btn-ready-back");
+const elBtnCoffeeMinus = document.getElementById("btn-coffee-minus");
+const elBtnCoffeePlus = document.getElementById("btn-coffee-plus");
 const elBtnStartBrewing = document.getElementById("btn-start-brewing");
 
-// Countdown screen elements
-const elCountdownRecipeName = document.getElementById("countdown-recipe-name");
-const elCountdownNum = document.getElementById("countdown-num");
-const elCountdownNextName = document.getElementById("countdown-next-name");
-const elCountdownNextDesc = document.getElementById("countdown-next-desc");
-const elBtnSkipCountdown = document.getElementById("btn-skip-countdown");
+// Countdown overlay elements
+const elCountdownOverlay = document.getElementById("countdown-overlay");
+const elCountdownOverlayNum = document.getElementById("countdown-overlay-num");
+const elCountdownPingRing = document.getElementById("countdown-ping-ring");
 
 const elRecipeTitle = document.getElementById("recipe-title-display");
 const elStepLabel = document.getElementById("step-label-display");
@@ -215,19 +280,19 @@ const elGaugeFill = document.getElementById("gauge-fill");
 const elGaugeWeightNum = document.getElementById("gauge-weight-num");
 const elGaugeTime = document.getElementById("gauge-time");
 const elGaugeTimerPill = document.getElementById("gauge-timer-pill");
-const elGaugePoured = document.getElementById("gauge-poured-text");
 const elValveCard = document.getElementById("valve-card");
-const elValveDesc = document.getElementById("valve-desc");
-const elValveBadge = document.getElementById("valve-badge");
-const elValveToggle = document.getElementById("valve-toggle");
+const elValveIndicator = document.getElementById("valve-indicator");
 const elRemainingFill = document.getElementById("remaining-fill");
 const elTotalTimeLabel = document.getElementById("total-time-label");
 const elBtnPause = document.getElementById("btn-pause");
 const elBtnNext = document.getElementById("btn-next");
 const elBtnReset = document.getElementById("btn-reset");
 const elBtnBack = document.getElementById("btn-back");
-const elCompleteStats = document.getElementById("complete-stats");
 const elRecipeList = document.getElementById("recipe-list");
+const elRecipeModalOverlay = document.getElementById("recipe-modal-overlay");
+const elRecipeModalSteps = document.getElementById("recipe-modal-steps");
+const elBtnModalStartBrew = document.getElementById("btn-modal-start-brew");
+const elBtnModalClose = document.getElementById("btn-modal-close");
 
 // Toast
 const toast = document.createElement("div");
@@ -255,7 +320,7 @@ document.querySelectorAll(".nav-btn").forEach((btn) => {
     } else if (target === "recipes") {
       showScreen("recipes");
     } else {
-      showToast("Coming soon!");
+      showToast("準備中！");
     }
   });
 });
@@ -282,13 +347,19 @@ function buildRecipeList() {
     const totalSec = recipe.totalTime % 60;
     const timeStr = totalSec > 0 ? `${totalMin}分${totalSec}秒` : `${totalMin}分`;
 
+    const iceStr = recipe.iceGrams ? `<span>🧊 ${recipe.iceGrams}g</span>` : "";
+    const nameDisplay = recipe.subname
+      ? `${recipe.name} <span class="recipe-subname">${recipe.subname}</span>`
+      : recipe.name;
+
     card.innerHTML = `
       <div class="recipe-card-icon">${recipe.icon}</div>
       <div class="recipe-card-info">
-        <div class="recipe-card-name">${recipe.name}</div>
+        <div class="recipe-card-name">${nameDisplay}</div>
         <div class="recipe-card-meta">
           <span>⏱ ${timeStr}</span>
           <span>💧 ${recipe.waterTotal}g</span>
+          ${iceStr}
           <span>☕ ${recipe.coffeeGrams}g</span>
         </div>
         <span class="recipe-tag ${recipe.tag}">${recipe.tagLabel}</span>
@@ -312,26 +383,108 @@ function buildRecipeList() {
 // =============================================
 function startRecipe(recipe) {
   state.currentRecipe = recipe;
+  // 初期比率を記憶（豆:水 = 1:ratio）
+  state.waterRatio = recipe.waterTotal / recipe.coffeeGrams;
 
   // Update Ready Screen Info
   elReadyRecipeIcon.textContent = recipe.icon;
   elReadyRecipeName.textContent = recipe.name;
-  elReadyCoffee.innerHTML = `${recipe.coffeeGrams}<span class="summary-unit">g</span>`;
-  elReadyWater.innerHTML = `${recipe.waterTotal}<span class="summary-unit">ml</span>`;
+  if (elReadyRecipeTagLabel) elReadyRecipeTagLabel.textContent = recipe.name;
+  elReadyCoffee.textContent = recipe.coffeeGrams;
+  elReadyWater.textContent = recipe.waterTotal;
 
   const totalMin = Math.floor(recipe.totalTime / 60);
   const totalSec = recipe.totalTime % 60;
-  elReadyTime.innerHTML = `${totalMin}:${totalSec.toString().padStart(2, "0")}<span class="summary-unit">min</span>`;
+  elReadyTime.textContent = `${totalMin}:${totalSec.toString().padStart(2, "0")}`;
 
   showScreen("ready");
 }
 
 elBtnReadyBack.addEventListener("click", () => {
+  hideRecipeModal();
   state.currentRecipe = null;
   showScreen("recipes");
 });
 
+// Coffee Beans +/- adjustment
+if (elBtnCoffeeMinus && elBtnCoffeePlus) {
+  function updateCoffeeAndWater(grams) {
+    // 豆グラムを更新
+    elReadyCoffee.textContent = grams;
+    elReadyCoffee.classList.remove("bump");
+    void elReadyCoffee.offsetWidth;
+    elReadyCoffee.classList.add("bump");
+
+    // 比率に基づいてお湯量を再計算（5ml単位で丸める）
+    const newWater = Math.round((grams * state.waterRatio) / 5) * 5;
+    state.currentRecipe.waterTotal = newWater;
+    elReadyWater.textContent = newWater;
+    elReadyWater.classList.remove("bump");
+    void elReadyWater.offsetWidth;
+    elReadyWater.classList.add("bump");
+  }
+  elBtnCoffeeMinus.addEventListener("click", () => {
+    if (!state.currentRecipe) return;
+    if (state.currentRecipe.coffeeGrams > 1) {
+      state.currentRecipe.coffeeGrams--;
+      updateCoffeeAndWater(state.currentRecipe.coffeeGrams);
+    }
+  });
+  elBtnCoffeePlus.addEventListener("click", () => {
+    if (!state.currentRecipe) return;
+    state.currentRecipe.coffeeGrams++;
+    updateCoffeeAndWater(state.currentRecipe.coffeeGrams);
+  });
+}
+
 elBtnStartBrewing.addEventListener("click", () => {
+  showRecipeModal(state.currentRecipe);
+});
+
+
+// =============================================
+// RECIPE OVERVIEW MODAL
+// =============================================
+function showRecipeModal(recipe) {
+  // ステップ一覧を動的生成
+  elRecipeModalSteps.innerHTML = "";
+  let elapsed = 0;
+  recipe.steps.forEach((step, i) => {
+    const start = elapsed;
+    const end = elapsed + step.duration;
+    elapsed = end;
+
+    const row = document.createElement("div");
+    row.className = "modal-step-row" + (i === 0 ? " active" : "");
+
+    row.innerHTML = `
+      <div class="modal-step-left">
+        <div class="modal-step-num">${i + 1}</div>
+        <div>
+          <div class="modal-step-name">${step.name}</div>
+          <div class="modal-step-time">${formatTime(start)} – ${formatTime(end)}</div>
+        </div>
+      </div>
+      <div class="modal-step-water">
+        <span class="modal-step-water-num">${step.waterTarget}</span><span class="modal-step-water-unit">g</span>
+      </div>
+    `;
+    elRecipeModalSteps.appendChild(row);
+  });
+
+  elRecipeModalOverlay.style.display = "flex";
+}
+
+function hideRecipeModal() {
+  elRecipeModalOverlay.style.display = "none";
+}
+
+elBtnModalClose.addEventListener("click", () => {
+  hideRecipeModal();
+});
+
+elBtnModalStartBrew.addEventListener("click", () => {
+  hideRecipeModal();
   startCountdown();
 });
 
@@ -341,44 +494,45 @@ elBtnStartBrewing.addEventListener("click", () => {
 let countdownTimerId = null;
 
 function startCountdown() {
-  const recipe = state.currentRecipe;
-  const firstStep = recipe.steps[0];
+  // Set up brew screen state behind the overlay
+  state.currentStepIndex = 0;
+  state.totalElapsed = 0;
+  state.isPaused = true;
+  buildProgressSegments();
+  loadStep(0);
 
-  elCountdownRecipeName.textContent = recipe.name;
-  elCountdownNextName.textContent = firstStep.name;
-  elCountdownNextDesc.textContent = firstStep.instruction;
+  // Show the brew screen
+  showScreen("brew");
 
-  showScreen("countdown");
-
+  // Show countdown overlay
+  elCountdownOverlay.style.display = "flex";
   let count = 3;
-  elCountdownNum.textContent = count;
+  elCountdownOverlayNum.textContent = count;
+
+  // Reset ring animation
+  elCountdownPingRing.style.animation = "none";
+  void elCountdownPingRing.offsetWidth;
+  elCountdownPingRing.style.animation = "";
 
   clearInterval(countdownTimerId);
   countdownTimerId = setInterval(() => {
     count--;
     if (count > 0) {
-      elCountdownNum.textContent = count;
+      elCountdownOverlayNum.textContent = count;
+      elCountdownPingRing.style.animation = "none";
+      void elCountdownPingRing.offsetWidth;
+      elCountdownPingRing.style.animation = "";
     } else {
       clearInterval(countdownTimerId);
+      elCountdownOverlay.style.display = "none";
       beginBrewTimer();
     }
   }, 1000);
 }
 
-elBtnSkipCountdown.addEventListener("click", () => {
-  clearInterval(countdownTimerId);
-  beginBrewTimer();
-});
-
 function beginBrewTimer() {
-  state.currentStepIndex = 0;
-  state.totalElapsed = 0;
   state.brewStartTime = Date.now();
   state.isPaused = false;
-
-  buildProgressSegments();
-  loadStep(0);
-  showScreen("brew");
 
   // Update nav button
   document.querySelectorAll(".nav-btn").forEach((btn) => {
@@ -427,7 +581,7 @@ function loadStep(index) {
 
   // Header
   elRecipeTitle.textContent = recipe.name;
-  elStepLabel.textContent = `Step ${index + 1} of ${recipe.steps.length}`;
+  elStepLabel.textContent = `ステップ ${index + 1} / ${recipe.steps.length}`;
 
   // Step info - animate
   elStepName.classList.remove("step-animate");
@@ -445,10 +599,26 @@ function loadStep(index) {
   // Valve
   if (step.hasValve) {
     elValveCard.style.display = "flex";
-    elValveDesc.textContent = step.valveDesc;
-    elValveBadge.textContent = step.valveOpen ? "OPEN" : "CLOSED";
-    elValveBadge.classList.toggle("open", step.valveOpen);
-    elValveToggle.checked = step.valveOpen;
+    if (step.valveOpen) {
+      elValveIndicator.innerHTML = `
+        <div class="valve-open-icon">
+          <div class="v-bar"></div>
+          <div class="v-leg v-leg-left"></div>
+          <div class="v-leg v-leg-right"></div>
+          <div class="v-flow"></div>
+          <span class="material-symbols-outlined v-arrow">keyboard_arrow_down</span>
+        </div>
+        <span class="valve-status-text open">開（流出中）</span>
+      `;
+    } else {
+      elValveIndicator.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4L12 16L20 4"/>
+          <path d="M8 20H16"/>
+        </svg>
+        <span class="valve-status-text closed">閉じる</span>
+      `;
+    }
   } else {
     elValveCard.style.display = "none";
   }
@@ -460,15 +630,12 @@ function loadStep(index) {
   const remaining = recipe.steps
     .slice(index)
     .reduce((a, s) => a + s.duration, 0);
-  elTotalTimeLabel.textContent = `${formatTime(remaining)} Total`;
+  elTotalTimeLabel.textContent = `${formatTime(remaining)} 合計`;
 
   // Update gauge & timer display
   updateGauge(0);
   updateTimerDisplay();
 
-  // Poured
-  const poured = index > 0 ? recipe.steps[index - 1].waterTarget : 0;
-  elGaugePoured.textContent = poured > 0 ? `${poured}g poured` : "-- poured";
 }
 
 // =============================================
@@ -478,7 +645,7 @@ function startTimer() {
   clearInterval(state.timerId);
   elBtnPause.innerHTML = `
     <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-    Pause
+    一時停止
   `;
   elBtnPause.classList.remove("paused");
   document.querySelector(".timer-dot")?.classList.remove("paused");
@@ -499,7 +666,7 @@ function startTimer() {
       // Auto-advance if not last step
       const isLast = state.currentStepIndex === state.currentRecipe.steps.length - 1;
       if (!isLast) {
-        showToast(`✅ Step ${state.currentStepIndex + 1} 完了！`);
+        showToast(`✅ ステップ ${state.currentStepIndex + 1} 完了！`);
         advanceStep();
       } else {
         finishBrew();
@@ -512,7 +679,7 @@ function pauseTimer() {
   state.isPaused = true;
   elBtnPause.innerHTML = `
     <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-    Resume
+    再開
   `;
   elBtnPause.classList.add("paused");
   document.querySelector(".timer-dot")?.classList.add("paused");
@@ -522,7 +689,7 @@ function resumeTimer() {
   state.isPaused = false;
   elBtnPause.innerHTML = `
     <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-    Pause
+    一時停止
   `;
   elBtnPause.classList.remove("paused");
   document.querySelector(".timer-dot")?.classList.remove("paused");
@@ -572,10 +739,6 @@ function advanceStep() {
 function updateTimerDisplay() {
   const t = formatTime(state.timeRemaining);
   elGaugeTime.textContent = t;
-  // pulse animation
-  elGaugeTimerPill.classList.remove("pulse");
-  void elGaugeTimerPill.offsetWidth;
-  elGaugeTimerPill.classList.add("pulse");
 }
 
 function updateGauge(progress) {
@@ -602,25 +765,6 @@ function finishBrew() {
   const recipe = state.currentRecipe;
   const totalBrewTime = Math.round((Date.now() - state.brewStartTime) / 1000);
 
-  elCompleteStats.innerHTML = `
-    <div class="stat-row">
-      <span class="stat-label">レシピ</span>
-      <span class="stat-value">${recipe.name}</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-label">総抽出時間</span>
-      <span class="stat-value">${formatTime(totalBrewTime)}</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-label">使用水量</span>
-      <span class="stat-value">${recipe.waterTotal}g</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-label">コーヒー豆</span>
-      <span class="stat-value">${recipe.coffeeGrams}g</span>
-    </div>
-  `;
-
   showScreen("complete");
 
   document.getElementById("btn-new-brew").addEventListener("click", () => {
@@ -629,15 +773,6 @@ function finishBrew() {
   }, { once: true });
 }
 
-// =============================================
-// VALVE TOGGLE
-// =============================================
-elValveToggle.addEventListener("change", () => {
-  const isOpen = elValveToggle.checked;
-  elValveBadge.textContent = isOpen ? "OPEN" : "CLOSED";
-  elValveBadge.classList.toggle("open", isOpen);
-  showToast(isOpen ? "🔓 バルブ開放" : "🔒 バルブ閉鎖");
-});
 
 // =============================================
 // UTILITIES
