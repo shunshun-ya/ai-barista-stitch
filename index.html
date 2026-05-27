@@ -11,6 +11,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
     rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -21,13 +24,6 @@
   <div id="screen-recipes" class="screen active">
     <header class="app-header">
       <h1 class="app-title">AI Barista</h1>
-      <button class="icon-btn" id="btn-header-settings" aria-label="設定">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="3" />
-          <path
-            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a1.65 1.65 0 1 1-2.33 2.33l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a1.65 1.65 0 1 1-3.3 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a1.65 1.65 0 1 1-2.33-2.33l.06-.06A1.65 1.65 0 0 0 5.18 15a1.65 1.65 0 0 0-1.51-1H3a1.65 1.65 0 1 1 0-3.3h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a1.65 1.65 0 1 1 2.33-2.33l.06.06A1.65 1.65 0 0 0 8.42 5a1.65 1.65 0 0 0 1-1.51V3a1.65 1.65 0 1 1 3.3 0v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a1.65 1.65 0 1 1 2.33 2.33l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a1.65 1.65 0 1 1 0 3.3h-.09a1.65 1.65 0 0 0-1.51 1z" />
-        </svg>
-      </button>
     </header>
 
     <div class="screen-content recipes-content">
@@ -38,37 +34,6 @@
       </div>
     </div>
 
-    <!-- Bottom Nav -->
-    <nav class="bottom-nav">
-      <button class="nav-btn" data-screen="brew">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z" />
-        </svg>
-        Brew
-      </button>
-      <button class="nav-btn active" data-screen="recipes">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z" />
-        </svg>
-        レシピ
-      </button>
-      <button class="nav-btn" data-screen="history">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z" />
-        </svg>
-        履歴
-      </button>
-      <button class="nav-btn" data-screen="profile">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-        </svg>
-        プロフィール
-      </button>
-    </nav>
   </div>
 
   <!-- ============================
@@ -81,73 +46,130 @@
           <polyline points="15 18 9 12 15 6" />
         </svg>
       </button>
-      <h2 class="app-title" style="flex:1; text-align:center;">Brewing Setup</h2>
+      <h2 class="app-title"
+        style="flex:1; text-align:center; font-size:13px; letter-spacing:0.15em; text-transform:uppercase;">抽出準備</h2>
       <div style="width: 38px;"></div>
     </header>
-    <div class="screen-content ready-content">
-      <h1 class="ready-title">Ready to Brew?</h1>
-      <p class="ready-sub">Your perfect cup is just one tap away.</p>
 
-      <div class="ready-recipe-card">
-        <div class="rrc-icon" id="ready-recipe-icon">🔄</div>
-        <div class="rrc-info">
-          <h3 id="ready-recipe-name">Hario Switch</h3>
+    <div class="screen-content ready-content-new">
+      <!-- Hero -->
+      <section class="ready-hero">
+        <h1 class="ready-title-new">抽出の準備はいいですか？</h1>
+        <p class="ready-sub-new">最高の1杯まであと少し。</p>
+      </section>
+
+      <!-- Recipe Card -->
+      <div class="ready-recipe-card-new">
+        <div class="rrc-left">
+          <div class="rrc-tag">
+            <span class="material-symbols-outlined rrc-tag-icon">water_drop</span>
+            <span id="ready-recipe-tag-label" class="rrc-tag-text">Hario Switch</span>
+          </div>
+          <h3 id="ready-recipe-name" class="rrc-name">Hario Switch</h3>
+          <p class="rrc-ratio">1:15の抽出比率に最適化</p>
         </div>
+        <div class="rrc-icon-new" id="ready-recipe-icon">🔄</div>
       </div>
 
-      <p class="section-label" style="text-align: center;">Recipe Summary</p>
-      <div class="ready-summary-grid">
-        <div class="summary-box">
-          <span class="summary-label">Coffee Beans</span>
-          <p class="summary-val" id="ready-coffee">15<span class="summary-unit">g</span></p>
+      <!-- Recipe Summary -->
+      <section class="ready-summary-section">
+        <p class="ready-summary-label">レシピ概要</p>
+
+        <!-- Coffee Beans full-width card with +/- -->
+        <div class="coffee-adjust-card">
+          <div class="coffee-adjust-header">
+            <span class="material-symbols-outlined coffee-adjust-icon">restaurant_menu</span>
+            <span class="coffee-adjust-title">コーヒー豆</span>
+          </div>
+          <div class="coffee-adjust-controls">
+            <button class="coffee-adjust-btn" id="btn-coffee-minus" aria-label="減らす">
+              <span class="material-symbols-outlined">remove</span>
+            </button>
+            <div class="coffee-adjust-value">
+              <span id="ready-coffee" class="coffee-num">15</span>
+              <span class="coffee-unit">g</span>
+            </div>
+            <button class="coffee-adjust-btn" id="btn-coffee-plus" aria-label="増やす">
+              <span class="material-symbols-outlined">add</span>
+            </button>
+          </div>
         </div>
-        <div class="summary-box">
-          <span class="summary-label">Total Water</span>
-          <p class="summary-val" id="ready-water">200<span class="summary-unit">ml</span></p>
+
+        <!-- 3-column grid -->
+        <div class="ready-grid-3">
+          <!-- Total Water -->
+          <div class="ready-grid-card">
+            <div class="rgc-top">
+              <span class="material-symbols-outlined rgc-icon filled">water_full</span>
+              <span class="rgc-label">湯量</span>
+            </div>
+            <div class="rgc-value">
+              <span id="ready-water" class="rgc-num">200</span>
+              <span class="rgc-unit">ml</span>
+            </div>
+          </div>
+          <!-- Temperature -->
+          <div class="ready-grid-card">
+            <div class="rgc-top">
+              <span class="material-symbols-outlined rgc-icon">thermostat</span>
+              <span class="rgc-label">温度</span>
+            </div>
+            <div class="rgc-value">
+              <span class="rgc-num">94</span>
+              <span class="rgc-unit">°C</span>
+            </div>
+          </div>
+          <!-- Est. Time -->
+          <div class="ready-grid-card">
+            <div class="rgc-top">
+              <span class="material-symbols-outlined rgc-icon filled">timer</span>
+              <span class="rgc-label">抽出時間目安</span>
+            </div>
+            <div class="rgc-value">
+              <span id="ready-time" class="rgc-num">2:15</span>
+              <span class="rgc-unit">min</span>
+            </div>
+          </div>
         </div>
-        <div class="summary-box">
-          <span class="summary-label">Temperature</span>
-          <p class="summary-val">94<span class="summary-unit">°C</span></p>
+      </section>
+
+      <!-- Action Buttons -->
+      <div class="ready-actions">
+        <button class="btn-primary ready-start-btn" id="btn-start-brewing">
+          <span class="material-symbols-outlined" style="font-size:28px;">play_circle</span>
+          <span class="ready-start-text">抽出開始</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============================
+         RECIPE OVERVIEW MODAL
+         (overlays the ready screen)
+         ============================ -->
+    <div id="recipe-modal-overlay" class="recipe-modal-overlay" style="display:none;" aria-modal="true" role="dialog"
+      aria-label="レシピ確認">
+      <div class="recipe-modal">
+        <div class="recipe-modal-header">
+          <button class="recipe-modal-close" id="btn-modal-close" aria-label="閉じる">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+          <h3 class="recipe-modal-title">レシピ確認</h3>
+          <p class="recipe-modal-sub">開始前にステップを確認しましょう</p>
         </div>
-        <div class="summary-box">
-          <span class="summary-label">Est. Time</span>
-          <p class="summary-val" id="ready-time">2:15<span class="summary-unit">min</span></p>
+        <div class="recipe-modal-steps" id="recipe-modal-steps">
+          <!-- Steps populated by JS -->
+        </div>
+        <div class="recipe-modal-footer">
+          <button class="btn-primary recipe-modal-start" id="btn-modal-start-brew">
+            <span class="material-symbols-outlined">play_arrow</span>
+            抽出開始
+          </button>
         </div>
       </div>
-
-      <button class="btn-primary" id="btn-start-brewing" style="margin-top: auto; margin-bottom: 20px;">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M8 5v14l11-7z" />
-        </svg>
-        Start Brewing
-      </button>
     </div>
   </div>
 
-  <!-- ============================
-       COUNTDOWN SCREEN
-       ============================ -->
-  <div id="screen-countdown" class="screen">
-    <div class="countdown-content">
-      <h2 class="countdown-recipe" id="countdown-recipe-name">Hario Switch</h2>
-      <div class="countdown-circle-wrap">
-        <div class="countdown-bg-pulse"></div>
-        <div class="countdown-bg"></div>
-        <h1 class="countdown-num" id="countdown-num">3</h1>
-      </div>
-      <p class="countdown-msg">Get ready to pour...</p>
 
-      <div class="countdown-next-step">
-        <span class="cn-label">Up Next</span>
-        <h3 id="countdown-next-name">Bloom Stage</h3>
-        <p id="countdown-next-desc">Gently saturate with water</p>
-      </div>
-
-      <button class="btn-secondary" id="btn-skip-countdown" style="width: 100%; margin-top: 20px;">
-        Skip Countdown
-      </button>
-    </div>
-  </div>
 
   <!-- ============================
        BREW / TIMER SCREEN
@@ -162,7 +184,7 @@
       </button>
       <div class="brew-header-title">
         <h2 id="recipe-title-display">Hario Switch Recipe</h2>
-        <span id="step-label-display">Step 1 of 4</span>
+        <span id="step-label-display">ステップ 1 / 4</span>
       </div>
       <button class="icon-btn" id="btn-brew-settings" aria-label="設定">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -178,7 +200,7 @@
 
     <div class="screen-content brew-content">
       <!-- Step Badge -->
-      <div class="step-badge">CURRENT STEP</div>
+      <div class="step-badge">現在のステップ</div>
       <h2 class="step-name" id="step-name">Bloom</h2>
       <p class="step-instruction" id="step-instruction">Add 60g of water</p>
 
@@ -191,7 +213,7 @@
               stroke-dashoffset="515.22" />
           </svg>
           <div class="gauge-inner">
-            <span class="gauge-target-label">TARGET</span>
+            <span class="gauge-target-label">目標</span>
             <div class="gauge-weight">
               <span class="gauge-weight-num" id="gauge-weight-num">60</span>
               <span class="gauge-weight-unit">g</span>
@@ -200,35 +222,21 @@
               <span class="timer-dot"></span>
               <span id="gauge-time">00:45</span>
             </div>
-            <div class="gauge-poured" id="gauge-poured-text">-- poured</div>
           </div>
         </div>
       </div>
 
       <!-- Switch Valve Card (shown only when applicable) -->
       <div class="valve-card" id="valve-card" style="display:none">
-        <div class="valve-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M12 1C8.14 1 5 4.14 5 8c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-          </svg>
-        </div>
-        <div class="valve-text">
-          <strong>Switch Valve</strong>
-          <span id="valve-desc">Keep closed for immersion</span>
-        </div>
-        <div class="valve-status" id="valve-status">
-          <span class="valve-badge" id="valve-badge">CLOSED</span>
-          <label class="toggle-switch" aria-label="バルブ切替">
-            <input type="checkbox" id="valve-toggle" />
-            <span class="toggle-thumb"></span>
-          </label>
+        <span class="valve-label">スイッチバルブ</span>
+        <div class="valve-indicator" id="valve-indicator">
+          <!-- JS で open/closed の状態に応じて描画 -->
         </div>
       </div>
 
       <!-- Remaining Progress Bar -->
       <div class="remaining-bar-wrap" id="remaining-bar-wrap">
-        <span class="remaining-label">REMAINING</span>
+        <span class="remaining-label">残り</span>
         <div class="remaining-bar">
           <div class="remaining-fill" id="remaining-fill"></div>
         </div>
@@ -243,10 +251,10 @@
           <rect x="6" y="4" width="4" height="16" />
           <rect x="14" y="4" width="4" height="16" />
         </svg>
-        Pause
+        一時停止
       </button>
       <button class="btn-primary" id="btn-next" aria-label="次のステップへ">
-        Next Step
+        次のステップ
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <polyline points="9 18 15 12 9 6" />
         </svg>
@@ -257,40 +265,20 @@
         <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
         <path d="M3 3v5h5" />
       </svg>
-      Reset Brew
+      抽出をリセット
     </button>
 
-    <!-- Bottom Nav -->
-    <nav class="bottom-nav">
-      <button class="nav-btn active" data-screen="brew">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z" />
-        </svg>
-        Brew
-      </button>
-      <button class="nav-btn" data-screen="recipes">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z" />
-        </svg>
-        レシピ
-      </button>
-      <button class="nav-btn" data-screen="history">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z" />
-        </svg>
-        履歴
-      </button>
-      <button class="nav-btn" data-screen="profile">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-        </svg>
-        プロフィール
-      </button>
-    </nav>
+    <!-- ============================
+         COUNTDOWN OVERLAY
+         ============================ -->
+    <div id="countdown-overlay" class="countdown-overlay" style="display:none;">
+      <div class="countdown-overlay-content">
+        <div class="countdown-number-box">
+          <span class="countdown-num-text" id="countdown-overlay-num">3</span>
+          <div class="countdown-ping-ring" id="countdown-ping-ring"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ============================
@@ -309,9 +297,8 @@
           <span></span><span></span><span></span>
         </div>
       </div>
-      <h2 class="complete-title">Enjoy your coffee!</h2>
+      <h2 class="complete-title">コーヒーが完成しました！</h2>
       <p class="complete-sub">素晴らしい抽出が完了しました ☕</p>
-      <div class="complete-stats" id="complete-stats"></div>
       <button class="btn-primary complete-btn" id="btn-new-brew">新しいレシピを選ぶ</button>
     </div>
   </div>
