@@ -2,7 +2,7 @@
 // RECIPE DATA
 // =============================================
 const RECIPES = [
-  // ─── 粕谷哲 4:6メソッド（ホット） ───────────────
+  // ─── 粕谷哲 4:6メソッド（ホット）レシオ 1:16 ────
   {
     id: "kasuya-46-hot",
     name: "4:6メソッド",
@@ -11,48 +11,49 @@ const RECIPES = [
     tag: "method46",
     tagLabel: "4:6 Method",
     totalTime: 210,   // 3:30
-    waterTotal: 300,
+    waterTotal: 320,  // 20g × 16
     coffeeGrams: 20,
     steps: [
       {
         name: "第1投（蒸らし）",
-        instruction: "50gのお湯を中心から外へ円を描くように注ぐ",
+        instruction: "64gのお湯を中心から外へ円を描くように注ぐ",
         duration: 45,
-        waterTarget: 50,
+        waterTarget: 64,
         hasValve: false,
       },
       {
         name: "第2投",
-        instruction: "70g追加し合計120gに（甘み・酸味を調整）",
+        instruction: "64g追加し合計128gに（甘み・酸味を調整）",
         duration: 45,
-        waterTarget: 120,
+        waterTarget: 128,
         hasValve: false,
       },
       {
         name: "第3投",
-        instruction: "60g追加し合計180gに",
+        instruction: "64g追加し合計192gに",
         duration: 45,
-        waterTarget: 180,
+        waterTarget: 192,
         hasValve: false,
       },
       {
         name: "第4投",
-        instruction: "60g追加し合計240gに",
+        instruction: "64g追加し合計256gに",
         duration: 45,
-        waterTarget: 240,
+        waterTarget: 256,
         hasValve: false,
       },
       {
         name: "第5投",
-        instruction: "60g追加し合計300gに（濃さを調整）",
+        instruction: "64g追加し合計320gに（濃さを調整）",
         duration: 30,
-        waterTarget: 300,
+        waterTarget: 320,
         hasValve: false,
       },
     ],
   },
 
-  // ─── 粕谷哲 4:6メソッド（アイス） ──────────────
+  // ─── 粕谷哲 4:6メソッド（アイス）レシオ 1:10 ───
+  // お湯のみ 20g × 10 = 200g
   {
     id: "kasuya-46-ice",
     name: "4:6メソッド",
@@ -61,56 +62,55 @@ const RECIPES = [
     tag: "ice",
     tagLabel: "Ice",
     totalTime: 180,   // 3:00
-    waterTotal: 170,  // 注湯量（別途サーバーに氷130gを用意）
+    waterTotal: 200,  // 20g × 10
     coffeeGrams: 20,
-    iceGrams: 130,
     steps: [
       {
         name: "準備",
-        instruction: "サーバーに氷130gをセットしておく",
+        instruction: "サーバーに氷をセットしておく",
         duration: 10,
         waterTarget: 0,
         hasValve: false,
       },
       {
         name: "第1投（蒸らし）",
-        instruction: "34gのお湯を中心から外へ円を描くように注ぐ",
+        instruction: "40gのお湯を中心から外へ円を描くように注ぐ",
         duration: 40,
-        waterTarget: 34,
+        waterTarget: 40,
         hasValve: false,
       },
       {
         name: "第2投",
-        instruction: "50g追加し合計84gに",
+        instruction: "40g追加し合計80gに",
         duration: 40,
-        waterTarget: 84,
+        waterTarget: 80,
         hasValve: false,
       },
       {
         name: "第3投",
-        instruction: "30g追加し合計114gに",
+        instruction: "40g追加し合計120gに",
         duration: 35,
-        waterTarget: 114,
+        waterTarget: 120,
         hasValve: false,
       },
       {
         name: "第4投",
-        instruction: "28g追加し合計142gに",
+        instruction: "40g追加し合計160gに",
         duration: 35,
-        waterTarget: 142,
+        waterTarget: 160,
         hasValve: false,
       },
       {
         name: "第5投",
-        instruction: "28g追加し合計170gに。氷が溶けたら完成",
+        instruction: "40g追加し合計200gに。氷が溶けたら完成",
         duration: 20,
-        waterTarget: 170,
+        waterTarget: 200,
         hasValve: false,
       },
     ],
   },
 
-  // ─── Hario Switch ハイブリッド（ホット）最新版 ──
+  // ─── Hario Switch ハイブリッド（ホット）レシオ 1:16 ──
   {
     id: "switch-hybrid-hot",
     name: "Switch ハイブリッド",
@@ -119,41 +119,41 @@ const RECIPES = [
     tag: "switch",
     tagLabel: "Switch",
     totalTime: 240,   // 4:00
-    waterTotal: 300,
+    waterTotal: 320,  // 20g × 16
     coffeeGrams: 20,
     steps: [
       {
         name: "蒸らし（バルブ閉）",
-        instruction: "50gのお湯を全体に均一に注ぐ",
+        instruction: "55gのお湯を全体に均一に注ぐ",
         duration: 45,
-        waterTarget: 50,
+        waterTarget: 55,
         hasValve: true,
         valveOpen: false,
         valveDesc: "浸漬のためバルブを閉じる",
       },
       {
         name: "第1投（バルブ開）",
-        instruction: "70g追加し合計120gに。中心から外へ円を描くように",
+        instruction: "75g追加し合計130gに。中心から外へ円を描くように",
         duration: 45,
-        waterTarget: 120,
+        waterTarget: 130,
         hasValve: true,
         valveOpen: true,
         valveDesc: "バルブを開けて透過式で抽出",
       },
       {
         name: "第2投（バルブ開）",
-        instruction: "80g追加し合計200gに。この間にお湯を70〜80℃に冷ます",
+        instruction: "85g追加し合計215gに。この間にお湯を70〜80℃に冷ます",
         duration: 40,
-        waterTarget: 200,
+        waterTarget: 215,
         hasValve: true,
         valveOpen: true,
         valveDesc: "バルブは開けたまま。お湯を冷ます",
       },
       {
         name: "第3投（バルブ閉）",
-        instruction: "冷ましたお湯100gを追加し合計300gに",
+        instruction: "冷ましたお湯105gを追加し合計320gに",
         duration: 35,
-        waterTarget: 300,
+        waterTarget: 320,
         hasValve: true,
         valveOpen: false,
         valveDesc: "バルブを閉じて浸漬に切り替え",
@@ -162,7 +162,7 @@ const RECIPES = [
         name: "ドリップ（バルブ開）",
         instruction: "バルブを開けてサーバーへ落とす",
         duration: 75,
-        waterTarget: 300,
+        waterTarget: 320,
         hasValve: true,
         valveOpen: true,
         valveDesc: "バルブを開けてドリップ開始",
@@ -170,7 +170,8 @@ const RECIPES = [
     ],
   },
 
-  // ─── Hario Switch ハイブリッド（アイス）最新版 ──
+  // ─── Hario Switch ハイブリッド（アイス）レシオ 1:10 ──
+  // お湯のみ 20g × 10 = 200g
   {
     id: "switch-hybrid-ice",
     name: "Switch ハイブリッド",
@@ -179,40 +180,39 @@ const RECIPES = [
     tag: "ice",
     tagLabel: "Ice",
     totalTime: 210,   // 3:30
-    waterTotal: 140,  // 注湯量（別途サーバーに氷80gを用意）
+    waterTotal: 200,  // 20g × 10
     coffeeGrams: 20,
-    iceGrams: 80,
     steps: [
       {
         name: "準備",
-        instruction: "サーバーに氷80gをセットしておく",
+        instruction: "サーバーに氷をセットしておく",
         duration: 10,
         waterTarget: 0,
         hasValve: false,
       },
       {
         name: "第1投（バルブ開）",
-        instruction: "30gのお湯を注ぐ",
+        instruction: "40gのお湯を注ぐ",
         duration: 30,
-        waterTarget: 30,
+        waterTarget: 40,
         hasValve: true,
         valveOpen: true,
         valveDesc: "バルブを開けて透過式で抽出",
       },
       {
         name: "第2投（バルブ開）",
-        instruction: "40g追加し合計70gに。この間にお湯を70℃に冷ます",
+        instruction: "60g追加し合計100gに。この間にお湯を70℃に冷ます",
         duration: 70,
-        waterTarget: 70,
+        waterTarget: 100,
         hasValve: true,
         valveOpen: true,
         valveDesc: "バルブは開けたまま。お湯を70℃に冷ます",
       },
       {
         name: "第3投（バルブ閉）",
-        instruction: "冷ました70℃のお湯70gを追加し合計140gに",
+        instruction: "冷ました70℃のお湯100gを追加し合計200gに",
         duration: 30,
-        waterTarget: 140,
+        waterTarget: 200,
         hasValve: true,
         valveOpen: false,
         valveDesc: "バルブを閉じて浸漬に切り替え",
@@ -221,7 +221,7 @@ const RECIPES = [
         name: "ドリップ（バルブ開）",
         instruction: "バルブを開けて氷の上に落とす",
         duration: 70,
-        waterTarget: 140,
+        waterTarget: 200,
         hasValve: true,
         valveOpen: true,
         valveDesc: "バルブを開けて氷の上へドリップ",
@@ -385,6 +385,9 @@ function startRecipe(recipe) {
   state.currentRecipe = recipe;
   // 初期比率を記憶（豆:水 = 1:ratio）
   state.waterRatio = recipe.waterTotal / recipe.coffeeGrams;
+  // 元のステップ湯量とトータル湯量を保存（グラム変更時のスケール計算用）
+  state.originalWaterTotal = recipe.waterTotal;
+  state.originalStepTargets = recipe.steps.map(s => s.waterTarget);
 
   // Update Ready Screen Info
   elReadyRecipeIcon.textContent = recipe.icon;
@@ -419,6 +422,14 @@ if (elBtnCoffeeMinus && elBtnCoffeePlus) {
     const newWater = Math.round((grams * state.waterRatio) / 5) * 5;
     state.currentRecipe.waterTotal = newWater;
     elReadyWater.textContent = newWater;
+
+    // 各ステップの湯量も比例スケールで更新
+    if (state.originalWaterTotal > 0) {
+      const scale = newWater / state.originalWaterTotal;
+      state.currentRecipe.steps.forEach((step, i) => {
+        step.waterTarget = Math.round(state.originalStepTargets[i] * scale);
+      });
+    }
     elReadyWater.classList.remove("bump");
     void elReadyWater.offsetWidth;
     elReadyWater.classList.add("bump");
