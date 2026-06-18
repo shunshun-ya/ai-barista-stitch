@@ -32,6 +32,11 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+button,
+[role="button"] {
+  touch-action: manipulation;
+}
+
 html,
 body {
   height: 100%;
@@ -1107,6 +1112,7 @@ body {
   transition: all var(--transition);
   color: var(--text-dark);
   flex-shrink: 0;
+  touch-action: manipulation;
 }
 
 .coffee-adjust-btn .material-symbols-outlined {
