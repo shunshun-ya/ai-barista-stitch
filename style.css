@@ -1591,3 +1591,56 @@ body {
 .recipe-modal-start .material-symbols-outlined {
   font-size: 24px;
 }
+/* === RECIPE CRUD ADDITIONS === */
+.header-actions { display: flex; gap: 6px; align-items: center; }
+
+.recipe-card-actions { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+
+.card-action-btn {
+  width: 32px; height: 32px; border: 1.5px solid var(--border);
+  border-radius: 8px; background: var(--bg); display: flex;
+  align-items: center; justify-content: center;
+  color: var(--text-light); cursor: pointer; transition: all 0.2s; flex-shrink: 0;
+}
+.card-action-btn svg { width: 14px; height: 14px; }
+.card-action-btn:hover { background: var(--primary-pale); color: var(--primary); border-color: var(--primary); }
+.card-action-btn.delete:hover { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+.recipe-tag.custom { background: #fef3c7; color: #d97706; }
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.48);
+  z-index: 9000; display: flex; align-items: flex-end; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+.modal-sheet {
+  width: min(390px,100%); max-height: 88vh; background: var(--bg);
+  border-radius: 24px 24px 0 0; display: flex; flex-direction: column;
+  transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25,1,0.5,1); overflow: hidden;
+}
+.modal-overlay.active .modal-sheet { transform: translateY(0); }
+.modal-drag-handle { width: 40px; height: 4px; background: var(--border); border-radius: 4px; margin: 12px auto 4px; flex-shrink: 0; }
+.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px 14px; border-bottom: 1px solid var(--border); background: var(--bg-card); flex-shrink: 0; }
+.modal-header h2 { font-size: 17px; font-weight: 800; color: var(--text-dark); }
+.modal-body { flex: 1; overflow-y: auto; padding: 20px; -webkit-overflow-scrolling: touch; }
+.modal-body::-webkit-scrollbar { display: none; }
+.modal-footer { padding: 12px 20px 28px; background: var(--bg-card); border-top: 1px solid var(--border); flex-shrink: 0; }
+
+/* Form */
+.form-group { margin-bottom: 14px; }
+.form-label { display: block; font-size: 11px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+.form-input { width: 100%; background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 11px 14px; font-family: var(--font-main); font-size: 15px; color: var(--text-dark); transition: border-color 0.2s; outline: none; -webkit-appearance: none; }
+.form-input:focus { border-color: var(--primary); }
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.steps-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.steps-section-label { font-size: 11px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.8px; }
+.btn-add-step { background: var(--primary-pale); color: var(--primary); border: none; border-radius: 20px; padding: 5px 14px; font-family: var(--font-main); font-size: 12px; font-weight: 700; cursor: pointer; }
+.step-editor-card { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 12px; }
+.step-editor-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.step-editor-num { font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; }
+.step-remove-btn { width: 26px; height: 26px; border: none; background: var(--primary-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--primary); transition: all 0.2s; flex-shrink: 0; }
+.step-remove-btn svg { width: 12px; height: 12px; }
+.step-remove-btn:hover { background: var(--primary); color: white; }
+.toggle-row { display: flex; align-items: center; justify-content: space-between; background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; cursor: pointer; }
+.toggle-row span { font-size: 14px; color: var(--text-mid); font-weight: 500; }
