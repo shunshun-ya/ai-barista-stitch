@@ -1,7 +1,7 @@
 // =============================================
-// RECIPE DATA
+// RECIPE DATA (built-in defaults)
 // =============================================
-const RECIPES = [
+const DEFAULT_RECIPES = [
   // ─── 粕谷哲 4:6メソッド（ホット）レシオ 1:16 ────
   {
     id: "kasuya-46-hot",
@@ -231,6 +231,90 @@ const RECIPES = [
 ];
 
 // =============================================
+// SUPABASE CONFIG
+// =============================================
+const SUPABASE_URL = 'https://gxkotngcouhekucjhzbh.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd4a290bmdjb3VoZWt1Y2poemJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3NTc4NjUsImV4cCI6MjA5NzMzMzg2NX0.2FfzQGFT_Vzx7DTm2KtYfmdzoIbNy9KflQKVz85DzbU';
+
+const supabaseClient = SUPABASE_URL.includes('YOUR_PROJECT')
+  ? null
+  : window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const RECIPE_STORAGE_KEY = 'aiBarista_recipes_v1';
+let recipes = [];
+
+function recipeToDb(recipe) {
+  return {
+    id: recipe.id,
+    name: recipe.name,
+    icon: recipe.icon,
+    tag: recipe.tag,
+    tag_label: recipe.tagLabel,
+    total_time: recipe.totalTime,
+    water_total: recipe.waterTotal,
+    coffee_grams: recipe.coffeeGrams,
+    steps: recipe.steps,
+  };
+}
+
+function dbToRecipe(row) {
+  return {
+    id: row.id,
+    name: row.name,
+    icon: row.icon,
+    tag: row.tag,
+    tagLabel: row.tag_label,
+    totalTime: row.total_time,
+    waterTotal: row.water_total,
+    coffeeGrams: row.coffee_grams,
+    steps: row.steps,
+  };
+}
+
+async function loadRecipes() {
+  if (!supabaseClient) {
+    try {
+      const saved = localStorage.getItem(RECIPE_STORAGE_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return DEFAULT_RECIPES.map(r => ({ ...r, steps: r.steps.map(s => ({ ...s })) }));
+  }
+  try {
+    const { data, error } = await supabaseClient.from('recipes').select('*').order('created_at');
+    if (error) throw error;
+    if (!data || data.length === 0) {
+      await supabaseClient.from('recipes').insert(DEFAULT_RECIPES.map(recipeToDb));
+      return DEFAULT_RECIPES.map(r => ({ ...r, steps: r.steps.map(s => ({ ...s })) }));
+    }
+    return data.map(dbToRecipe);
+  } catch (e) {
+    console.error('Supabase load error:', e);
+    showToast('データ読み込みに失敗しました');
+    return DEFAULT_RECIPES.map(r => ({ ...r, steps: r.steps.map(s => ({ ...s })) }));
+  }
+}
+
+async function upsertRecipe(recipe) {
+  if (!supabaseClient) {
+    try { localStorage.setItem(RECIPE_STORAGE_KEY, JSON.stringify(recipes)); } catch (e) {}
+    return true;
+  }
+  const { error } = await supabaseClient.from('recipes').upsert(recipeToDb(recipe));
+  if (error) { console.error(error); showToast('保存に失敗しました'); return false; }
+  return true;
+}
+
+async function removeRecipeFromDb(id) {
+  if (!supabaseClient) {
+    try { localStorage.setItem(RECIPE_STORAGE_KEY, JSON.stringify(recipes)); } catch (e) {}
+    return true;
+  }
+  const { error } = await supabaseClient.from('recipes').delete().eq('id', id);
+  if (error) { console.error(error); showToast('削除に失敗しました'); return false; }
+  return true;
+}
+
+// =============================================
 // APP STATE
 // =============================================
 let state = {
@@ -335,7 +419,7 @@ elBtnBack.addEventListener("click", () => {
 // =============================================
 function buildRecipeList() {
   elRecipeList.innerHTML = "";
-  RECIPES.forEach((recipe) => {
+  recipes.forEach((recipe) => {
     const card = document.createElement("div");
     card.className = "recipe-card";
     card.setAttribute("role", "button");
@@ -364,10 +448,24 @@ function buildRecipeList() {
         </div>
         <span class="recipe-tag ${recipe.tag}">${recipe.tagLabel}</span>
       </div>
-      <div class="recipe-arrow">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      <div class="recipe-card-actions">
+        <button class="card-action-btn" data-action="edit" aria-label="編集">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </button>
+        <button class="card-action-btn delete" data-action="delete" aria-label="削除">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+        </button>
       </div>
     `;
+
+    card.querySelector('[data-action="edit"]').addEventListener("click", (e) => {
+      e.stopPropagation();
+      openRecipeEditor(recipe);
+    });
+    card.querySelector('[data-action="delete"]').addEventListener("click", (e) => {
+      e.stopPropagation();
+      deleteRecipe(recipe.id);
+    });
 
     card.addEventListener("click", () => startRecipe(recipe));
     card.addEventListener("keydown", (e) => {
@@ -803,7 +901,190 @@ function showToast(msg) {
 }
 
 // =============================================
+// RECIPE CRUD & EDITOR
+// =============================================
+let editingRecipeId = null;
+let editorSteps = [];
+
+function escapeHtml(str) {
+  return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function openRecipeEditor(recipe = null) {
+  editingRecipeId = recipe ? recipe.id : null;
+  editorSteps = recipe
+    ? recipe.steps.map(s => ({ ...s }))
+    : [{ name: "", instruction: "", duration: 30, waterTarget: 0, hasValve: false, valveOpen: false, valveDesc: "" }];
+
+  document.getElementById("modal-title").textContent = recipe ? "レシピを編集" : "新しいレシピ";
+  document.getElementById("field-name").value = recipe ? recipe.name : "";
+  document.getElementById("field-icon").value = recipe ? recipe.icon : "☕";
+  document.getElementById("field-coffee").value = recipe ? recipe.coffeeGrams : 15;
+  document.getElementById("field-water").value = recipe ? recipe.waterTotal : 200;
+
+  renderEditorSteps();
+  document.getElementById("modal-recipe-editor").classList.add("active");
+  setTimeout(() => document.getElementById("field-name").focus(), 400);
+}
+
+function closeRecipeEditor() {
+  document.getElementById("modal-recipe-editor").classList.remove("active");
+}
+
+function syncEditorStepsFromDOM() {
+  document.querySelectorAll("#editor-steps-list .step-editor-card").forEach((card, i) => {
+    if (!editorSteps[i]) return;
+    editorSteps[i].name = card.querySelector('[data-field="name"]')?.value || "";
+    editorSteps[i].instruction = card.querySelector('[data-field="instruction"]')?.value || "";
+    editorSteps[i].duration = parseInt(card.querySelector('[data-field="duration"]')?.value) || 30;
+    editorSteps[i].waterTarget = parseInt(card.querySelector('[data-field="waterTarget"]')?.value) || 0;
+    editorSteps[i].hasValve = card.querySelector('[data-field="hasValve"]')?.checked || false;
+    editorSteps[i].valveDesc = card.querySelector('[data-field="valveDesc"]')?.value || "";
+    editorSteps[i].valveOpen = card.querySelector('[data-field="valveOpen"]')?.checked || false;
+  });
+}
+
+function renderEditorSteps() {
+  const container = document.getElementById("editor-steps-list");
+  container.innerHTML = "";
+  editorSteps.forEach((step, i) => {
+    const card = document.createElement("div");
+    card.className = "step-editor-card";
+    card.innerHTML = `
+      <div class="step-editor-header">
+        <span class="step-editor-num">Step ${i + 1}</span>
+        ${editorSteps.length > 1 ? `<button class="step-remove-btn" data-index="${i}" aria-label="削除">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>` : ""}
+      </div>
+      <div class="form-row-2">
+        <div class="form-group">
+          <label class="form-label">ステップ名</label>
+          <input class="form-input" type="text" placeholder="例: Bloom" value="${escapeHtml(step.name)}" data-field="name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">時間 (秒)</label>
+          <input class="form-input" type="number" min="1" value="${step.duration}" data-field="duration">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">指示</label>
+        <input class="form-input" type="text" placeholder="例: 60gのお湯を注ぐ" value="${escapeHtml(step.instruction)}" data-field="instruction">
+      </div>
+      <div class="form-row-2">
+        <div class="form-group">
+          <label class="form-label">目標水量 (g)</label>
+          <input class="form-input" type="number" min="0" value="${step.waterTarget}" data-field="waterTarget">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Switch バルブ</label>
+          <label class="toggle-row">
+            <span>バルブあり</span>
+            <label class="toggle-switch" style="flex-shrink:0;">
+              <input type="checkbox" ${step.hasValve ? "checked" : ""} data-field="hasValve">
+              <span class="toggle-thumb"></span>
+            </label>
+          </label>
+        </div>
+      </div>
+      ${step.hasValve ? `<div class="form-row-2">
+        <div class="form-group">
+          <label class="form-label">バルブの説明</label>
+          <input class="form-input" type="text" placeholder="例: バルブを閉じる" value="${escapeHtml(step.valveDesc || "")}" data-field="valveDesc">
+        </div>
+        <div class="form-group">
+          <label class="form-label">バルブ初期状態</label>
+          <label class="toggle-row">
+            <span>${step.valveOpen ? "Open" : "Closed"}</span>
+            <label class="toggle-switch" style="flex-shrink:0;">
+              <input type="checkbox" ${step.valveOpen ? "checked" : ""} data-field="valveOpen">
+              <span class="toggle-thumb"></span>
+            </label>
+          </label>
+        </div>
+      </div>` : ""}
+    `;
+    card.querySelector(".step-remove-btn")?.addEventListener("click", () => {
+      syncEditorStepsFromDOM();
+      editorSteps.splice(i, 1);
+      renderEditorSteps();
+    });
+    card.querySelector('[data-field="hasValve"]').addEventListener("change", () => {
+      syncEditorStepsFromDOM();
+      renderEditorSteps();
+    });
+    container.appendChild(card);
+  });
+}
+
+function addEditorStep() {
+  syncEditorStepsFromDOM();
+  const prev = editorSteps[editorSteps.length - 1];
+  editorSteps.push({ name: "", instruction: "", duration: 30, waterTarget: prev ? prev.waterTarget : 0, hasValve: false, valveOpen: false, valveDesc: "" });
+  renderEditorSteps();
+  setTimeout(() => { const b = document.querySelector(".modal-body"); b.scrollTo({ top: b.scrollHeight, behavior: "smooth" }); }, 50);
+}
+
+async function saveRecipeFromForm() {
+  syncEditorStepsFromDOM();
+  const name = document.getElementById("field-name").value.trim();
+  const icon = document.getElementById("field-icon").value.trim() || "☕";
+  const coffeeGrams = parseInt(document.getElementById("field-coffee").value) || 0;
+  const waterTotal = parseInt(document.getElementById("field-water").value) || 0;
+
+  if (!name) { showToast("レシピ名を入力してください"); document.getElementById("field-name").focus(); return; }
+  if (!editorSteps.length) { showToast("ステップを1つ以上追加してください"); return; }
+
+  const totalTime = editorSteps.reduce((a, s) => a + (parseInt(s.duration) || 0), 0);
+  const id = editingRecipeId || `custom-${Date.now()}`;
+  const existing = recipes.find(r => r.id === editingRecipeId);
+  const recipe = {
+    id, name, icon,
+    tag: existing?.tag || "custom",
+    tagLabel: existing?.tagLabel || "Custom",
+    totalTime, waterTotal, coffeeGrams,
+    steps: editorSteps.map(s => ({
+      name: s.name || "Step", instruction: s.instruction || "",
+      duration: parseInt(s.duration) || 30, waterTarget: parseInt(s.waterTarget) || 0,
+      hasValve: !!s.hasValve, valveOpen: !!s.valveOpen, valveDesc: s.valveDesc || "",
+    })),
+  };
+
+  if (editingRecipeId) {
+    const idx = recipes.findIndex(r => r.id === editingRecipeId);
+    if (idx !== -1) recipes[idx] = recipe;
+  } else {
+    recipes.push(recipe);
+  }
+  buildRecipeList();
+  closeRecipeEditor();
+  const ok = await upsertRecipe(recipe);
+  if (ok) showToast(editingRecipeId ? "✅ レシピを更新しました" : "✅ レシピを追加しました");
+}
+
+async function deleteRecipe(id) {
+  const recipe = recipes.find(r => r.id === id);
+  if (!recipe) return;
+  if (!confirm(`「${recipe.name}」を削除しますか？`)) return;
+  recipes = recipes.filter(r => r.id !== id);
+  buildRecipeList();
+  const ok = await removeRecipeFromDb(id);
+  if (ok) showToast("🗑️ レシピを削除しました");
+}
+
+document.getElementById("btn-add-recipe").addEventListener("click", () => openRecipeEditor());
+document.getElementById("btn-recipe-editor-close").addEventListener("click", closeRecipeEditor);
+document.getElementById("btn-add-step").addEventListener("click", addEditorStep);
+document.getElementById("btn-save-recipe").addEventListener("click", saveRecipeFromForm);
+document.getElementById("modal-recipe-editor").addEventListener("click", e => { if (e.target === e.currentTarget) closeRecipeEditor(); });
+
+// =============================================
 // INIT
 // =============================================
-buildRecipeList();
-showScreen("recipes");
+async function initApp() {
+  showScreen("recipes");
+  elRecipeList.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-light);font-size:14px;font-weight:500;">読み込み中...</div>';
+  recipes = await loadRecipes();
+  buildRecipeList();
+}
+initApp();
